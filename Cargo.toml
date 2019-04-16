@@ -1,0 +1,6 @@
+[package]
+name = "jenkins_sample_lib"
+version = "0.1.0"
+authors = ["Chris O'Neil <chris.oneil@gmail.com>"]
+
+[dependencies]
