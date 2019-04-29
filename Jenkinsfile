@@ -7,6 +7,6 @@ stage('build') {
 
 stage('test') {
     node('windows') {
-        sh("cargo build")
+        sh("cargo test")
     }
 }
