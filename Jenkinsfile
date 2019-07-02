@@ -20,7 +20,7 @@ stage('deploy') {
                 sh("git config --global user.email qa@maidsafe.net")
                 sh("git config credential.username Maidsafe-QA")
                 sh("git config credential.helper '!f() { password=\$GIT_PASSWORD; }; f'")
-                sh("GIT_ASKPASS=true git push origin --tags")
+                sh("GIT_ASKPASS=true git push origin --tags --verbose")
             }
         } finally {
             sh("git config --unset user.name")
