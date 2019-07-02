@@ -14,9 +14,9 @@ stage('deploy') {
                 usernameVariable: "GIT_USER",
                 passwordVariable: "GIT_PASSWORD")]) {
                 version = "0.0.1"
-                sh("git tag -a ${version} -m 'Creating tag for ${version}'")
+                //sh("git tag -a ${version} -m 'Creating tag for ${version}'")
                 sh("git config credential.username Maidsafe-QA")
-                sh("git config credential.helper '!echo password=\$GIT_PASSWORD; echo'")
+                sh("git config credential.helper '!f() { echo password=\$GIT_PASSWORD; }; f'")
                 sh("GIT_ASKPASS=true git push origin --tags")
             }
         } finally {
