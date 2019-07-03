@@ -1,7 +1,7 @@
 stage('deploy') {
     node('docker') {
         checkout(scm)
-        version = "0.0.10"
+        version = "0.0.11"
         if (tag_exists(version)) {
             delete_tag(version)
         }
