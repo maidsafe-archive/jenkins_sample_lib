@@ -28,7 +28,6 @@ stage('deploy') {
 }
 
 def tag_exists(version) {
-    status = sh(returnStatus: true, script: "git tag | grep ${version}") as Integer
-    echo("status = ${status}")
-    return status == 0
+    output = sh(returnStdout: true, script: "git tag -l ${version}")
+    return output?.trim()
 }
