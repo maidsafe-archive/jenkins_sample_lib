@@ -24,7 +24,7 @@ def delete_tag(version) {
         sh("git config credential.username \$GIT_USER")
         sh("git config credential.helper '!f() { echo password=\$GIT_PASSWORD; }; f'")
         sh("git tag -d ${version}")
-        sh("GIT_ASKPASS=true git push origin --tags")
+        sh("GIT_ASKPASS=true git push --delete origin ${version}")
     }
 }
 
