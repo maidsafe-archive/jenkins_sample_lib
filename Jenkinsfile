@@ -1,6 +1,13 @@
 stage('deploy') {
     node('docker') {
-        checkout(scm)
+        //checkout(scm)
+        checkout([
+            $class: 'GitSCM',
+            branches: scm.branches,
+            doGenerateSubmoduleConfigurations: scm.doGenerateSubmoduleConfigurations,
+            extensions: scm.extensions + [[$class: 'CloneOption', noTags: false, reference: '', shallow: true]],
+            submoduleCfg: [],
+            userRemoteConfigs: scm.userRemoteConfigs])
         version = "0.0.11"
         if (tag_exists(version)) {
             delete_tag(version)
