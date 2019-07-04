@@ -29,12 +29,17 @@ def create_tag(version) {
 }
 
 def create_github_release(version) {
-    sh("""
-        github-release release \
-            --user maidsafe \
-            --repo safe-cli \
-            --tag ${version} \
-            --name "safe-cli" \
-            --description "Command line interface for the SAFE Network"
-    """)
+    withCredentials([usernamePassword(
+        credentialsId: "github_maidsafe_token_credentials",
+        usernameVariable: "GITHUB_USER",
+        passwordVariable: "GITHUB_TOKEN")]) {
+        sh("""
+            github-release release \
+                --user maidsafe \
+                --repo safe-cli \
+                --tag ${version} \
+                --name "safe-cli" \
+                --description "Command line interface for the SAFE Network"
+        """)
+    }
 }
