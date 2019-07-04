@@ -21,9 +21,12 @@ stage('deploy') {
 }
 
 def version_change_commit() {
+    short_commit_hash = sh(
+        returnStdout: true,
+        script: "git log -n 1 --pretty=format:'%h'").trim()
     message = sh(
         returnStdout: true,
-        script: "git log --format=%B -n 1 ${env.GIT_COMMIT}").trim()
+        script: "git log --format=%B -n 1 ${short_commit_hash}").trim()
     return message.startsWith("Version change")
 }
 
