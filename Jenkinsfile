@@ -27,6 +27,7 @@ def version_change_commit() {
     message = sh(
         returnStdout: true,
         script: "git log --format=%B -n 1 ${short_commit_hash}").trim()
+    echo("message = ${message}")
     return message.startsWith("Version change")
 }
 
