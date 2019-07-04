@@ -8,8 +8,9 @@ stage('deploy') {
             extensions: scm.extensions + [[$class: 'CloneOption', noTags: false, reference: '', shallow: true]],
             submoduleCfg: [],
             userRemoteConfigs: scm.userRemoteConfigs])
-        version = "0.0.16"
+        version = "0.0.17"
         retrieve_build_artifacts()
+        package_artifacts_for_deploy()
         create_tag(version)
         create_github_release(version)
     }
@@ -20,6 +21,10 @@ def retrieve_build_artifacts() {
     command += "SAFE_CLI_BUILD_NUMBER=10 "
     command += "make retrieve-all-build-artifacts"
     sh(command)
+}
+
+def package_artifacts_for_deploy() {
+    sh("make package-artifacts-for-deploy")
 }
 
 def create_tag(version) {
@@ -54,7 +59,7 @@ def create_github_release(version) {
                 --user maidsafe \
                 --repo jenkins_sample_lib \
                 --tag ${version} \
-                --name "safe-cli-linux-${version}-x86_64" \
+                --name "safe-cli-linux-${version}-x86_64.tar" \
                 --file artifacts/linux/release/safe
         """)
         sh("""
@@ -62,7 +67,7 @@ def create_github_release(version) {
                 --user maidsafe \
                 --repo jenkins_sample_lib \
                 --tag ${version} \
-                --name "safe-cli-win-${version}-x86_64" \
+                --name "safe-cli-win-${version}-x86_64.tar" \
                 --file artifacts/win/release/safe.exe
         """)
         sh("""
@@ -70,7 +75,7 @@ def create_github_release(version) {
                 --user maidsafe \
                 --repo jenkins_sample_lib \
                 --tag ${version} \
-                --name "safe-cli-macos-${version}-x86_64" \
+                --name "safe-cli-macos-${version}-x86_64.tar" \
                 --file artifacts/macos/release/safe
         """)
     }
