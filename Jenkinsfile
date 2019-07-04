@@ -8,7 +8,7 @@ stage('deploy') {
             extensions: scm.extensions + [[$class: 'CloneOption', noTags: false, reference: '', shallow: true]],
             submoduleCfg: [],
             userRemoteConfigs: scm.userRemoteConfigs])
-        version = "0.0.15"
+        version = "0.0.16"
         retrieve_build_artifacts()
         create_tag(version)
         create_github_release(version)
@@ -62,8 +62,8 @@ def create_github_release(version) {
                 --user maidsafe \
                 --repo jenkins_sample_lib \
                 --tag ${version} \
-                --name "safe-cli-windows-${version}-x86_64" \
-                --file artifacts/windows/release/safe.exe
+                --name "safe-cli-win-${version}-x86_64" \
+                --file artifacts/win/release/safe.exe
         """)
         sh("""
             github-release upload \
