@@ -8,7 +8,7 @@ stage('deploy') {
             extensions: scm.extensions + [[$class: 'CloneOption', noTags: false, reference: '', shallow: true]],
             submoduleCfg: [],
             userRemoteConfigs: scm.userRemoteConfigs])
-        version = "0.0.17"
+        version = "0.0.19"
         retrieve_build_artifacts()
         package_artifacts_for_deploy()
         create_tag(version)
@@ -60,7 +60,7 @@ def create_github_release(version) {
                 --repo jenkins_sample_lib \
                 --tag ${version} \
                 --name "safe-cli-linux-${version}-x86_64.tar" \
-                --file artifacts/linux/release/safe
+                --file safe_cli-linux-${version}-x86_64.tar
         """)
         sh("""
             github-release upload \
@@ -68,7 +68,7 @@ def create_github_release(version) {
                 --repo jenkins_sample_lib \
                 --tag ${version} \
                 --name "safe-cli-win-${version}-x86_64.tar" \
-                --file artifacts/win/release/safe.exe
+                --file safe_cli-win-${version}-x86_64.tar
         """)
         sh("""
             github-release upload \
@@ -76,7 +76,7 @@ def create_github_release(version) {
                 --repo jenkins_sample_lib \
                 --tag ${version} \
                 --name "safe-cli-macos-${version}-x86_64.tar" \
-                --file artifacts/macos/release/safe
+                --file safe_cli-macos-${version}-x86_64.tar
         """)
     }
 }
