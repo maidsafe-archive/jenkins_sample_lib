@@ -7,7 +7,7 @@ stage('deploy') {
             extensions: scm.extensions + [[$class: 'CloneOption', noTags: false, reference: '', shallow: true]],
             submoduleCfg: [],
             userRemoteConfigs: scm.userRemoteConfigs])
-        version = "0.0.24"
+        version = "0.0.25"
         retrieve_build_artifacts()
         if (version_change_commit()) {
             package_artifacts_for_deploy(version_commit=true)
@@ -15,7 +15,6 @@ stage('deploy') {
             create_github_release(version)
         } else {
             package_artifacts_for_deploy(version_commit=false)
-            sh("ls -al")
             echo("upload to S3")
         }
     }
