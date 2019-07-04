@@ -8,7 +8,8 @@ stage('deploy') {
             extensions: scm.extensions + [[$class: 'CloneOption', noTags: false, reference: '', shallow: true]],
             submoduleCfg: [],
             userRemoteConfigs: scm.userRemoteConfigs])
-        version = "0.0.14"
+        version = "0.0.15"
+        retrieve_build_artifacts()
         create_tag(version)
         create_github_release(version)
     }
