@@ -8,7 +8,7 @@ stage('deploy') {
             extensions: scm.extensions + [[$class: 'CloneOption', noTags: false, reference: '', shallow: true]],
             submoduleCfg: [],
             userRemoteConfigs: scm.userRemoteConfigs])
-        version = "0.0.21"
+        version = "0.0.22"
         retrieve_build_artifacts()
         package_artifacts_for_deploy()
         create_tag(version)
@@ -25,7 +25,6 @@ def retrieve_build_artifacts() {
 
 def package_artifacts_for_deploy() {
     sh("make package-artifacts-for-deploy")
-    sh("ls -al")
 }
 
 def create_tag(version) {
@@ -47,37 +46,6 @@ def create_github_release(version) {
         credentialsId: "github_maidsafe_token_credentials",
         usernameVariable: "GITHUB_USER",
         passwordVariable: "GITHUB_TOKEN")]) {
-        sh("""
-            github-release release \
-                --user maidsafe \
-                --repo jenkins_sample_lib \
-                --tag ${version} \
-                --name "jenkins_sample_lib" \
-                --description "Sample release"
-        """)
-        sh("""
-            github-release upload \
-                --user maidsafe \
-                --repo jenkins_sample_lib \
-                --tag ${version} \
-                --name "safe-cli-linux-${version}-x86_64.tar" \
-                --file safe_cli-linux-${version}-x86_64.tar
-        """)
-        sh("""
-            github-release upload \
-                --user maidsafe \
-                --repo jenkins_sample_lib \
-                --tag ${version} \
-                --name "safe-cli-win-${version}-x86_64.tar" \
-                --file safe_cli-win-${version}-x86_64.tar
-        """)
-        sh("""
-            github-release upload \
-                --user maidsafe \
-                --repo jenkins_sample_lib \
-                --tag ${version} \
-                --name "safe-cli-macos-${version}-x86_64.tar" \
-                --file safe_cli-macos-${version}-x86_64.tar
-        """)
+        sh("make deploy-github-release")
     }
 }
