@@ -10,11 +10,11 @@ stage('deploy') {
         version = "0.0.27"
         retrieve_build_artifacts()
         if (version_change_commit()) {
-            package_artifacts_for_deploy(version_commit=true)
+            package_artifacts_for_deploy(true)
             create_tag(version)
             create_github_release(version)
         } else {
-            package_artifacts_for_deploy(version_commit=false)
+            package_artifacts_for_deploy(false)
             echo("upload to S3")
         }
     }
