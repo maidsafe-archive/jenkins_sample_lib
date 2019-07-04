@@ -1,5 +1,5 @@
 SHELL := /bin/bash
-SAFE_CLI_VERSION := 0.0.22
+SAFE_CLI_VERSION := 0.0.23
 S3_BUCKET := safe-jenkins-build-artifacts
 
 retrieve-all-build-artifacts:
