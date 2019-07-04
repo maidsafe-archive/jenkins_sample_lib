@@ -1,6 +1,5 @@
 stage('deploy') {
     node('docker') {
-        //checkout(scm)
         checkout([
             $class: 'GitSCM',
             branches: scm.branches,
@@ -10,10 +9,22 @@ stage('deploy') {
             userRemoteConfigs: scm.userRemoteConfigs])
         version = "0.0.24"
         retrieve_build_artifacts()
-        package_artifacts_for_deploy()
-        create_tag(version)
-        create_github_release(version)
+        if (version_change_commit()) {
+            package_artifacts_for_deploy(version_commit=true)
+            create_tag(version)
+            create_github_release(version)
+        } else {
+            package_artifacts_for_deploy(version_commit=false)
+            echo("upload to S3")
+        }
     }
+}
+
+def version_change_commit() {
+    message = sh(
+        returnStdout: true,
+        script: "git log --format=%B -n 1 ${GIT_COMMIT}").trim()
+    return message.startsWith("Version change")
 }
 
 def retrieve_build_artifacts() {
@@ -23,8 +34,12 @@ def retrieve_build_artifacts() {
     sh(command)
 }
 
-def package_artifacts_for_deploy() {
-    sh("make package-artifacts-for-deploy")
+def package_artifacts_for_deploy(version_commit) {
+    if (version_commit) {
+        sh("make package-version-artifacts-for-deploy")
+    } else {
+        sh("make package-commit_hash-artifacts-for-deploy")
+    }
 }
 
 def create_tag(version) {
