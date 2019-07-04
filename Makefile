@@ -43,22 +43,22 @@ endif
 		--repo jenkins_sample_lib \
 		--tag ${SAFE_CLI_VERSION} \
 		--name "jenkins_sample_lib" \
-		--description "Sample release"
+		--description "Sample release";
 	github-release upload \
 		--user maidsafe \
 		--repo jenkins_sample_lib \
 		--tag ${SAFE_CLI_VERSION} \
 		--name "safe-cli-linux-${SAFE_CLI_VERSION}-x86_64.tar" \
-		--file safe_cli-linux-${SAFE_CLI_VERSION}-x86_64.tar
+		--file safe_cli-linux-${SAFE_CLI_VERSION}-x86_64.tar;
 	github-release upload \
 		--user maidsafe \
 		--repo jenkins_sample_lib \
 		--tag ${version} \
 		--name "safe-cli-win-${SAFE_CLI_VERSION}-x86_64.tar" \
-		--file safe_cli-win-${SAFE_CLI_VERSION}-x86_64.tar
+		--file safe_cli-win-${SAFE_CLI_VERSION}-x86_64.tar;
 	github-release upload \
 		--user maidsafe \
 		--repo jenkins_sample_lib \
 		--tag ${version} \
 		--name "safe-cli-macos-${SAFE_CLI_VERSION}-x86_64.tar" \
-		--file safe_cli-macos-${SAFE_CLI_VERSION}-x86_64.tar
+		--file safe_cli-macos-${SAFE_CLI_VERSION}-x86_64.tar;
