@@ -15,6 +15,7 @@ stage('deploy') {
             create_github_release(version)
         } else {
             package_artifacts_for_deploy(version_commit=false)
+            sh("ls -al")
             echo("upload to S3")
         }
     }
