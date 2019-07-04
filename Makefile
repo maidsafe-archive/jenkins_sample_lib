@@ -1,5 +1,5 @@
 SHELL := /bin/bash
-SAFE_CLI_VERSION := 0.0.23
+SAFE_CLI_VERSION := 0.0.24
 S3_BUCKET := safe-jenkins-build-artifacts
 
 retrieve-all-build-artifacts:
@@ -48,17 +48,17 @@ endif
 		--user maidsafe \
 		--repo jenkins_sample_lib \
 		--tag ${SAFE_CLI_VERSION} \
-		--name "safe-cli-linux-${SAFE_CLI_VERSION}-x86_64.tar" \
+		--name "safe_cli-linux-${SAFE_CLI_VERSION}-x86_64.tar" \
 		--file safe_cli-linux-${SAFE_CLI_VERSION}-x86_64.tar;
 	github-release upload \
 		--user maidsafe \
 		--repo jenkins_sample_lib \
 		--tag ${version} \
-		--name "safe-cli-win-${SAFE_CLI_VERSION}-x86_64.tar" \
+		--name "safe_cli-win-${SAFE_CLI_VERSION}-x86_64.tar" \
 		--file safe_cli-win-${SAFE_CLI_VERSION}-x86_64.tar;
 	github-release upload \
 		--user maidsafe \
 		--repo jenkins_sample_lib \
 		--tag ${version} \
-		--name "safe-cli-macos-${SAFE_CLI_VERSION}-x86_64.tar" \
+		--name "safe_cli-macos-${SAFE_CLI_VERSION}-x86_64.tar" \
 		--file safe_cli-macos-${SAFE_CLI_VERSION}-x86_64.tar;
