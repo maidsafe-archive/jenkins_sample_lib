@@ -23,7 +23,7 @@ stage('deploy') {
 def version_change_commit() {
     message = sh(
         returnStdout: true,
-        script: "git log --format=%B -n 1 ${GIT_COMMIT}").trim()
+        script: "git log --format=%B -n 1 ${env.GIT_COMMIT}").trim()
     return message.startsWith("Version change")
 }
 
