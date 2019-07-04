@@ -53,12 +53,12 @@ endif
 	github-release upload \
 		--user maidsafe \
 		--repo jenkins_sample_lib \
-		--tag ${version} \
+		--tag ${SAFE_CLI_VERSION} \
 		--name "safe_cli-win-${SAFE_CLI_VERSION}-x86_64.tar" \
 		--file safe_cli-win-${SAFE_CLI_VERSION}-x86_64.tar;
 	github-release upload \
 		--user maidsafe \
 		--repo jenkins_sample_lib \
-		--tag ${version} \
+		--tag ${SAFE_CLI_VERSION} \
 		--name "safe_cli-macos-${SAFE_CLI_VERSION}-x86_64.tar" \
 		--file safe_cli-macos-${SAFE_CLI_VERSION}-x86_64.tar;
