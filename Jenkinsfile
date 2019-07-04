@@ -25,6 +25,7 @@ def retrieve_build_artifacts() {
 
 def package_artifacts_for_deploy() {
     sh("make package-artifacts-for-deploy")
+    sh("ls -al")
 }
 
 def create_tag(version) {
