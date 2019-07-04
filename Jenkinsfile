@@ -7,7 +7,7 @@ stage('deploy') {
             extensions: scm.extensions + [[$class: 'CloneOption', noTags: false, reference: '', shallow: true]],
             submoduleCfg: [],
             userRemoteConfigs: scm.userRemoteConfigs])
-        version = "0.0.25"
+        version = "0.0.26"
         retrieve_build_artifacts()
         if (version_change_commit()) {
             package_artifacts_for_deploy(version_commit=true)
