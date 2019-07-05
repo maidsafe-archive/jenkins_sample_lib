@@ -76,9 +76,12 @@ def create_github_release(version) {
 }
 
 def upload_deploy_artifacts() {
+    sh("ls -al")
+    sh("ls -al deploy")
     withAWS(credentials: 'aws_jenkins_deploy_artifacts_user', region: 'eu-west-2') {
         def artifacts = sh(returnStdout: true, script: 'ls -1 deploy').trim().split("\\r?\\n")
         for (artifact in artifacts) {
+            echo("artifact = ${artifact}")
             s3Upload(
                 bucket: "${params.DEPLOY_BUCKET}",
                 file: artifact,
