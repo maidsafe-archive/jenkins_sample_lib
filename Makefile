@@ -29,15 +29,23 @@ endif
 
 package-commit_hash-artifacts-for-deploy:
 	rm -f *.tar
+	rm -rf deploy
 	tar -C artifacts/linux/release -cvf safe_cli-linux-$$(git rev-parse --short HEAD)-x86_64.tar safe
 	tar -C artifacts/win/release -cvf safe_cli-win-$$(git rev-parse --short HEAD)-x86_64.tar safe.exe
 	tar -C artifacts/macos/release -cvf safe_cli-macos-$$(git rev-parse --short HEAD)-x86_64.tar safe
+	mv safe_cli-linux-$$(git rev-parse --short HEAD)-x86_64.tar deploy
+	mv safe_cli-win-$$(git rev-parse --short HEAD)-x86_64.tar deploy
+	mv safe_cli-macos-$$(git rev-parse --short HEAD)-x86_64.tar deploy
 
 package-version-artifacts-for-deploy:
 	rm -f *.tar
+	rm -rf deploy
 	tar -C artifacts/linux/release -cvf safe_cli-linux-${SAFE_CLI_VERSION}-x86_64.tar safe
 	tar -C artifacts/win/release -cvf safe_cli-win-${SAFE_CLI_VERSION}-x86_64.tar safe.exe
 	tar -C artifacts/macos/release -cvf safe_cli-macos-${SAFE_CLI_VERSION}-x86_64.tar safe
+	mv safe_cli-linux-${SAFE_CLI_VERSION}-x86_64.tar deploy
+	mv safe_cli-win-${SAFE_CLI_VERSION}-x86_64.tar deploy
+	mv safe_cli-macos-${SAFE_CLI_VERSION}-x86_64.tar deploy
 
 deploy-github-release:
 ifndef GITHUB_TOKEN
