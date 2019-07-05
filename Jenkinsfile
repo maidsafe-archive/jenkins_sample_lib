@@ -1,3 +1,10 @@
+properties([
+    parameters([
+        string(name: 'ARTIFACTS_BUCKET', defaultValue: 'safe-client-libs-jenkins'),
+        string(name: 'DEPLOY_BUCKET', defaultValue: 'safe-cli')
+    ])
+])
+
 stage('deploy') {
     node('docker') {
         checkout([
@@ -15,7 +22,7 @@ stage('deploy') {
             create_github_release(version)
         } else {
             package_artifacts_for_deploy(false)
-            echo("upload to S3")
+            upload_deploy_artifacts()
         }
     }
 }
@@ -27,7 +34,6 @@ def version_change_commit() {
     message = sh(
         returnStdout: true,
         script: "git log --format=%B -n 1 ${short_commit_hash}").trim()
-    echo("message = ${message}")
     return message.startsWith("Version change")
 }
 
@@ -41,7 +47,6 @@ def retrieve_build_artifacts() {
 def package_artifacts_for_deploy(version_commit) {
     if (version_commit) {
         sh("make package-version-artifacts-for-deploy")
-        sh("ls -al")
     } else {
         sh("make package-commit_hash-artifacts-for-deploy")
     }
@@ -67,5 +72,18 @@ def create_github_release(version) {
         usernameVariable: "GITHUB_USER",
         passwordVariable: "GITHUB_TOKEN")]) {
         sh("make deploy-github-release")
+    }
+}
+
+def upload_deploy_artifacts() {
+    withAWS(credentials: 'aws_jenkins_deploy_artifacts_user', region: 'eu-west-2') {
+        def artifacts = sh(returnStdout: true, script: 'ls -1 artifacts').trim().split("\\r?\\n")
+        for (artifact in artifacts) {
+            s3Upload(
+                bucket: "${params.DEPLOY_BUCKET}",
+                file: artifact,
+                workingDir: "${env.WORKSPACE}/artifacts",
+                acl: 'PublicRead')
+        }
     }
 }
