@@ -34,4 +34,4 @@ publish:
 		-v ~/.cargo/credentials:/home/maidsafe/.cargo/credentials:Z \
 		-u ${USER_ID}:${GROUP_ID} \
 		maidsafe/jenkins_sample_lib:build \
-		/bin/bash -c "cargo login && cargo package"
+		/bin/bash -c "cargo login && cargo package && cargo publish"
