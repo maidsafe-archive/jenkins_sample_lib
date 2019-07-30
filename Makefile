@@ -81,7 +81,6 @@ ifndef CRATES_IO_TOKEN
 	@exit 1
 endif
 	rm -rf artifacts
-	ls -al artifacts
 	docker run --rm -v "${PWD}":/usr/src/jenkins_sample_lib:Z \
 		-u ${USER_ID}:${GROUP_ID} \
 		maidsafe/jenkins_sample_lib:build \
