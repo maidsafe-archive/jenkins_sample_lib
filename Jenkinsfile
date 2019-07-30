@@ -34,7 +34,7 @@ stage('build & test') {
 
 stage('deploy') {
     node('docker') {
-        if (env.BRANCH_NAME == "master") {
+        if (params.BRANCH_NAME == "master") {
             checkout(scm)
             retrieveBuildArtifacts()
             if (versionChangeCommit()) {
