@@ -2,6 +2,7 @@ SHELL := /bin/bash
 USER_ID := $(shell id -u)
 GROUP_ID := $(shell id -g)
 UNAME_S := $(shell uname -s)
+UUID := $(shell uuidgen | sed 's/-//g')
 
 build-container:
 	rm -rf target/
