@@ -6,7 +6,7 @@ properties([
 
 stage('build & test') {
     parallel linux: {
-        node('linux') {
+        node('docker') {
             checkout(scm)
             sh("make test")
             packageBuildArtifacts('linux')

@@ -25,7 +25,7 @@ ifeq ($(UNAME_S),Linux)
 	docker cp "jenkins_sample_lib-${UUID}":/target .
 	docker rm "jenkins_sample_lib-${UUID}"
 else
-	cargo test
+	cargo test --release
 endif
 	find target/release -maxdepth 1 -type f -exec cp '{}' artifacts \;
 
