@@ -1,6 +1,6 @@
 properties([
     parameters([
-        string(name: 'ARTIFACTS_BUCKET', defaultValue: 'safe-jenkins-build-artifacts')
+        string(name: 'ARTIFACTS_BUCKET', defaultValue: 'safe-jenkins-build-artifacts'),
         string(name: 'BRANCH_NAME', defaultValue: 'master')
     ])
 ])
