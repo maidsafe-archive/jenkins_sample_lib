@@ -3,5 +3,5 @@ name = "jenkins_sample_lib"
 version = "0.1.0"
 authors = ["Chris O'Neil <chris.oneil@gmail.com>"]
 description = "Dummy library for testing automation for pushing to crates.io"
-
-[dependencies]
+readme = "README.md"
+repository = "https://github.com/maidsafe/jenkins_sample_lib"
