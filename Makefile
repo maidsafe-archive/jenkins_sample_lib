@@ -29,9 +29,11 @@ endif
 	find target/release -maxdepth 1 -type f -exec cp '{}' artifacts \;
 
 publish:
-	docker run --name "jenkins_sample_lib-${UUID}" \
-		-v "${PWD}":/usr/src/jenkins_sample_lib:Z \
-		-v ~/.cargo/credentials:/home/maidsafe/.cargo/credentials:Z \
+ifndef CRATES_IO_TOKEN
+	@echo "A login token for crates.io must be provided."
+	@exit 1
+endif
+	docker run --rm -v "${PWD}":/usr/src/jenkins_sample_lib:Z \
 		-u ${USER_ID}:${GROUP_ID} \
 		maidsafe/jenkins_sample_lib:build \
-		/bin/bash -c "cargo login && cargo package && cargo publish"
+		/bin/bash -c "cargo login ${CRATES_IO_TOKEN} && cargo package && cargo publish"
