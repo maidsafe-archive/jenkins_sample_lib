@@ -44,8 +44,7 @@ stage('deploy') {
 }
 
 def packageBuildArtifacts(os) {
-    branch = env.CHANGE_ID?.trim() ?: env.BRANCH_NAME
-    withEnv(["JENKINS_SAMPLE_BRANCH=${branch}",
+    withEnv(["JENKINS_SAMPLE_BRANCH=${params.BRANCH_NAME}",
              "JENKINS_SAMPLE_BUILD_NUMBER=${env.BUILD_NUMBER}",
              "JENKINS_SAMPLE_BUILD_OS=${os}"]) {
         sh("make package-build-artifacts")
