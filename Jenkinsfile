@@ -34,11 +34,15 @@ stage('build & test') {
 
 stage('deploy') {
     node('docker') {
-        checkout(scm)
-        retrieveBuildArtifacts()
-        withCredentials([string(
-            credentialsId: 'crates_io_token', variable: 'CRATES_IO_TOKEN')]) {
-            sh("make publish")
+        if (env.BRANCH_NAME == "master") {
+            checkout(scm)
+            retrieveBuildArtifacts()
+            if (versionChangeCommit()) {
+                withCredentials([string(
+                    credentialsId: 'crates_io_token', variable: 'CRATES_IO_TOKEN')]) {
+                    sh("make publish")
+                }
+            }
         }
     }
 }
@@ -69,4 +73,14 @@ def retrieveBuildArtifacts() {
              "JENKINS_SAMPLE_BUILD_NUMBER=${env.BUILD_NUMBER}"]) {
         sh("make retrieve-all-build-artifacts")
     }
+}
+
+def versionChangeCommit() {
+    shortCommitHash = sh(
+        returnStdout: true,
+        script: "git log -n 1 --pretty=format:'%h'").trim()
+    message = sh(
+        returnStdout: true,
+        script: "git log --format=%B -n 1 ${shortCommitHash}").trim()
+    return message.startsWith("Version change")
 }
