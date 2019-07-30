@@ -1,6 +1,6 @@
 [package]
 name = "jenkins_sample_lib"
-version = "0.1.0"
+version = "0.0.1"
 authors = ["Chris O'Neil <chris.oneil@gmail.com>"]
 description = "Dummy library for testing automation for pushing to crates.io"
 readme = "README.md"
