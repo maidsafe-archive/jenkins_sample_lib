@@ -33,5 +33,5 @@ RUN chown -R maidsafe:maidsafe /usr/src/jenkins_sample_lib
 USER maidsafe:maidsafe
 ENV CARGO_TARGET_DIR=/target YARN_GPG=no RUST_BACKTRACE=1
 
-RUN cargo test
+RUN cargo test --release
 ENTRYPOINT ["fixuid"]
