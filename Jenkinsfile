@@ -1,6 +1,7 @@
 properties([
     parameters([
         string(name: 'ARTIFACTS_BUCKET', defaultValue: 'safe-jenkins-build-artifacts')
+        string(name: 'BRANCH_NAME', defaultValue: 'master')
     ])
 ])
 
@@ -65,8 +66,7 @@ def uploadBuildArtifacts() {
 }
 
 def retrieveBuildArtifacts() {
-    branch = env.CHANGE_ID?.trim() ?: env.BRANCH_NAME
-    withEnv(["JENKINS_SAMPLE_BRANCH=${branch}",
+    withEnv(["JENKINS_SAMPLE_BRANCH=${params.BRANCH_NAME}",
              "JENKINS_SAMPLE_BUILD_NUMBER=${env.BUILD_NUMBER}"]) {
         sh("make retrieve-all-build-artifacts")
     }
