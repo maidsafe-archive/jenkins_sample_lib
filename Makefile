@@ -80,7 +80,8 @@ ifndef CRATES_IO_TOKEN
 	@echo "A login token for crates.io must be provided."
 	@exit 1
 endif
-	rm -rf artifacts # cargo publish doesn't allow uncommitted files in the directory
+	rm -rf artifacts
+	ls -al artifacts
 	docker run --rm -v "${PWD}":/usr/src/jenkins_sample_lib:Z \
 		-u ${USER_ID}:${GROUP_ID} \
 		maidsafe/jenkins_sample_lib:build \
