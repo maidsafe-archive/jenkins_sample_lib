@@ -18,7 +18,7 @@ stage('build & test') {
         node('windows') {
             checkout(scm)
             sh("make test")
-            packageBuildArtifacts('linux')
+            packageBuildArtifacts('windows')
             uploadBuildArtifacts()
         }
     },

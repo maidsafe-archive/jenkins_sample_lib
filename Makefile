@@ -45,7 +45,7 @@ ifndef JENKINS_SAMPLE_BUILD_OS
 	@echo "Valid values are 'linux' or 'windows' or 'macos'."
 	@exit 1
 endif
-	$(eval ARCHIVE_NAME := ${JENKINS_SAMPLE_BRANCH}-${JENKINS_SAMPLE_BUILD_NUMBER}-jenkins_sample_lib-${JENKINS_SAMPLE_BUILD_OS}-x86_64.tar.gz)
+	$(eval ARCHIVE_NAME := ${JENKINS_SAMPLE_BRANCH}-${JENKINS_SAMPLE_BUILD_NUMBER}-jenkins_sample-${JENKINS_SAMPLE_BUILD_OS}-x86_64.tar.gz)
 	tar -C artifacts -zcvf ${ARCHIVE_NAME} .
 	rm artifacts/**
 	mv ${ARCHIVE_NAME} artifacts
